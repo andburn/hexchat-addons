@@ -65,10 +65,6 @@ def handle_message(word, word_eol, userdata, attributes):
 	return hexchat.EAT_ALL
 
 
-def handle_notice(word, word_eol, userdata, attributes):
-	pass
-
 hexchat.hook_server_attrs("PRIVMSG", handle_message)
-hexchat.hook_server_attrs("NOTICE", handle_notice)
 
 print(__module_name__, 'version', __module_version__, 'loaded.')
