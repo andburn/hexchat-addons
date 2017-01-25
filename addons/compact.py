@@ -5,6 +5,7 @@ __module_description__ = "Compact layout to maximize horizontal space"
 
 
 import re
+import time
 import datetime
 import hexchat
 
@@ -40,11 +41,12 @@ def print_date_if_new(channel, time):
 
 
 def handle_message(word, word_eol, userdata, attributes):
-	if not attributes.time:
-		return hexchat.EAT_NONE
+	message_time = attributes.time
+	if not message_time:
+		message_time = time.time()
 
 	channel = hexchat.get_info("channel")
-	print_date_if_new(channel, attributes.time)
+	print_date_if_new(channel, message_time)
 
 	# check for hearthsim mirror bot messages
 	match = re.search(r':\[(discord|gitter|irc)\]\s+<(.*?)>\s+(.*)', word_eol[3])
