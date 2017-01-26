@@ -49,7 +49,7 @@ def handle_message(word, word_eol, userdata, attributes):
 	print_date_if_new(channel, message_time)
 
 	# check for hearthsim mirror bot messages
-	match = re.search(r':\[(discord|gitter|irc)\]\s+<(.*?)>\s+(.*)', word_eol[3])
+	match = re.search(r':\[(discord|gitter|irc)\]\s+<(.*?)>\s*(.*)', word_eol[3])
 	if match:
 		# rearrange the message
 		nick = truncate(match.group(2), 10) + "|" + match.group(1)[:1].upper()
