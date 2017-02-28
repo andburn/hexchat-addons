@@ -11,6 +11,7 @@ import hexchat
 
 
 NICK_LEN = 12
+tardis_channels = ("#hearthsim", "#HearthSim/Hearthstone-Deck-Tracker")
 prev_dates = {}
 
 
@@ -41,12 +42,17 @@ def print_date_if_new(channel, time):
 
 
 def handle_message(word, word_eol, userdata, attributes):
+	# print date time if new day
 	message_time = attributes.time
 	if not message_time:
 		message_time = time.time()
 
 	channel = hexchat.get_info("channel")
 	print_date_if_new(channel, message_time)
+
+	# only handle channels with tardis bot messages
+	if word[2] not in tardis_channels:
+		return hexchat.EAT_NONE
 
 	# check for hearthsim mirror bot messages
 	match = re.search(r':\[(discord|gitter|irc)\]\s+<(.*?)>\s*(.*)', word_eol[3])
